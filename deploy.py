@@ -35,7 +35,7 @@ class MatriceModel:
                 return JSONResponse(content=jsonable_encoder({"status": 0, "message": "Some error occurred"}), status_code=500)
 
 
-    def run_api(self, host="127.0.0.1", port=80):
+    def run_api(self, host="0.0.0.0", port=80):
         uvicorn.run(self.app, host=host, port=port)
 
 
