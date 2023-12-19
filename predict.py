@@ -6,7 +6,7 @@ import numpy as np
 
 
 
-def load_model(model_path):
+def load_model():
     #model=torch.load(model_path)
     model=torch.hub.load('pytorch/vision:v0.10.0', 'resnet18', pretrained=True)
     if torch.cuda.is_available():
