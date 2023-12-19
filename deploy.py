@@ -46,11 +46,9 @@ class MatriceModel:
 
 
     def inference(self, image):
-        if self.model_path == '':
-            self.model_path = self.download_model()
-
+        
         if self.model is None:
-            self.model = load_model(self.model_path)
+            self.model = load_model()
 
         self.last_no_inference_time = -1
 
@@ -91,9 +89,6 @@ class MatriceModel:
         t1.setDaemon(True)
         t1.start()
 
-
-    def download_model(self):
-        return "test"
 
     def update_deployment_info(self):
         ip = self.ip
