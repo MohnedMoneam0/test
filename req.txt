@@ -29,3 +29,7 @@ torch
 torchvision
 fastapi
 uvicorn
+boto3
+pymongo
+cloudpathlib==0.15.1
+s3fs
