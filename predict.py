@@ -4,11 +4,12 @@ import torch
 from torchvision import transforms
 import numpy as np
 
+import torch.nn.functional as F
 
-
-def load_model():
-    #model=torch.load(model_path)
+def load_model(model_id):
+    
     model=torch.hub.load('pytorch/vision:v0.10.0', 'resnet18', pretrained=True)
+        
     if torch.cuda.is_available():
         model.cuda(0)
     model.eval()
@@ -33,8 +34,12 @@ def predict(model,image_bytes):
         with torch.no_grad():
             output = model(input_tensor)
 
-        # Process the output as needed
-        # For example, you might want to return the class with the highest probability
-        _, predicted_class = torch.max(output, 1)
+    
+        # Apply softmax to get probabilities
+        probabilities = F.softmax(output, dim=1)
+    
+        # Get the confidence for the predicted class
+        predicted_class = torch.argmax(output, 1).item()
+        confidence = round(probabilities[0, predicted_class].item(), 2)
 
-        return {"predicted_class": predicted_class.item()}
+        return {"category": str(predicted_class), "confidence": confidence}
